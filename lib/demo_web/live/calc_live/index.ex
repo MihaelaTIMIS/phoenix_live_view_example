@@ -12,9 +12,22 @@ defmodule DemoWeb.CalcLive.Index do
   def handle_event("digit", digit, socket = %{assigns: %{clear_display_on_next_digit: true}} ) do
     {:noreply, assign(socket, display: digit, clear_display_on_next_digit: false)}
   end
-
   def handle_event("digit", digit, socket) do
     {:noreply, assign(socket, display: "#{socket.assigns.display}#{digit}")}
+  end
+
+  # Number key presses
+  def handle_event("keyup", key, socket) when (key >= "0" and key <= "9") or key == "." do
+    handle_event("digit", key, socket)
+  end
+  def handle_event("keyup", key, socket) when key in ["+","-","/","*"] do
+    handle_event("operator", key, socket)
+  end
+  def handle_event("keyup", key, socket) when key = "=" do
+    handle_event("solve", key, socket)
+  end
+  def handle_event("keyup", _key, socket) do
+    {:noreply, socket}
   end
 
   # Operator clicks (+,-,*,/):
@@ -78,11 +91,12 @@ defmodule DemoWeb.CalcLive.Index do
   end
 
   defp reset_state(socket, memory \\ 0) do
-    assign(socket, %{display: '0', value: 0, pending_operator: '', clear_display_on_next_digit: true, memory: memory})
+    assign(socket, %{display: '0', value: 0, pending_operator: '',
+      clear_display_on_next_digit: true, memory: memory, key: ''})
   end
 
   defp peform_pending_operation(socket) do
     {accumulator, _} = Float.parse("#{socket.assigns.value}")
-    {:ok, new_value} = Abacus.eval("#{accumulator} #{socket.assigns.pending_operator} #{display_as_float(socket)}")
+    {:ok, _new_value} = Abacus.eval("#{accumulator} #{socket.assigns.pending_operator} #{display_as_float(socket)}")
   end
 end
