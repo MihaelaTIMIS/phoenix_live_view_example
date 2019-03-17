@@ -1,0 +1,36 @@
+#calc {
+  width: 500px;
+  margin: auto;
+}
+
+h1 {
+  width: 410px;
+  text-align: right;
+}
+
+button {
+  width: 75px;
+  margin: 4px 4px 4px 0;
+  font-size: 20px;
+}
+
+button.span-2 {
+  width: 158px;
+  text-align: left;
+}
+
+button.operator {
+  background-color: #f78246;
+  border-color: #f78246;
+}
+
+button.util {
+  background-color: #999;
+  border-color: #999;
+  padding: 0;
+}
+
+button.memory {
+  background-color: black;
+  border-color: black;
+}

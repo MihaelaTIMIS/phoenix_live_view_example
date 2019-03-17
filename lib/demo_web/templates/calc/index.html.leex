@@ -1,0 +1,42 @@
+<div id="calc">
+  <h1><%= @display %></h1>
+  <button phx-click="memory" phx-value="clear" class="memory">MC</button>
+  <button phx-click="reset" class="util">C</button>
+  <button phx-click="square_root" class="util">√</button>
+  <button phx-click="posneg" class="util">+/-</button>
+  <button phx-click="operator" phx-value='/' class="operator">/</button>
+  <br/>
+  <button phx-click="memory" phx-value="recall" class="memory">MR</button>
+  <button phx-click="digit" phx-value=7>7</button>
+  <button phx-click="digit" phx-value=8>8</button>
+  <button phx-click="digit" phx-value=9>9</button>
+  <button phx-click="operator" phx-value='*' class="operator">x</button>
+  <br/>
+  <button phx-click="memory" phx-value="store" class="memory">MS</button>
+  <button phx-click="digit" phx-value=4>4</button>
+  <button phx-click="digit" phx-value=5>5</button>
+  <button phx-click="digit" phx-value=6>6</button>
+  <button phx-click="operator" phx-value='-' class="operator">-</button>
+  <br/>
+  <button phx-click="memory" phx-value="add" class="memory">M+</button>
+  <button phx-click="digit" phx-value=1>1</button>
+  <button phx-click="digit" phx-value=2>2</button>
+  <button phx-click="digit" phx-value=3>3</button>
+  <button phx-click="operator" phx-value='+' class="operator">+</button>
+  <br/>
+  <button phx-click="memory" phx-value="minus" class="memory">M-</button>
+  <button phx-click="digit" phx-value=0 class="span-2">0</button>
+  <button phx-click="digit" phx-value='.'>.</button>
+  <button phx-click="solve" class="operator" <%= disabled_flag(@pending_operator) %>>=</button>
+  <hr/>
+  @value: <%= @value %>
+  <br/>
+  @display: <%= @display %>
+  <br/>
+  @memory: <%= @memory %>
+  <br/>
+  @pending_operator: <%= @pending_operator %>
+  <br/>
+  @reset_on_next_digit: <%= @reset_on_next_digit %>
+</div>
+
