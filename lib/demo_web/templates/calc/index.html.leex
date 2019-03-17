@@ -1,4 +1,4 @@
-<div id="calc" phx-keyup="keyup" phx-target="window">
+<div id="calc" phx-keypress="keypress" phx-target="window">
   <h1><%= @display %></h1>
   <button phx-click="memory" phx-value="clear" class="memory">MC</button>
   <button phx-click="reset" class="util">C</button>
