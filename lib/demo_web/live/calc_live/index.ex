@@ -95,9 +95,11 @@ defmodule DemoWeb.CalcLive.Index do
     {:ok, _new_value} = Abacus.eval("#{accumulator} #{socket.assigns.pending_operator} #{display_to_float(socket)}")
   end
 
+  # When clear_display_on_next_digit flag is set, clear display and set to new digit
   defp update_display(digit, socket = %{assigns: %{clear_display_on_next_digit: true}} ) do
     {:noreply, assign(socket, display: digit, clear_display_on_next_digit: false)}
   end
+  # ... otherwise append digit onto display.
   defp update_display(digit, socket ) do
     {:noreply, assign(socket, display: "#{socket.assigns.display}#{digit}")}
   end
