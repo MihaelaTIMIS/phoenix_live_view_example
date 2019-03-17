@@ -13,7 +13,7 @@ defmodule DemoWeb.CalcLive.Index do
     update_display(digit, socket)
   end
 
-  # Number key presses
+  # Key presses
   def handle_event("keypress", key, socket) when (key >= "0" and key <= "9") or key == "." do
     update_display(key, socket )
   end
