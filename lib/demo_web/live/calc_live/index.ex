@@ -17,19 +17,21 @@ defmodule DemoWeb.CalcLive.Index do
     {:noreply, assign(socket, display: "#{socket.assigns.display}#{digit}")}
   end
 
-  # Operator clicks (+,-,*,/)...
+  # Operator clicks (+,-,*,/):
   # when there is no pending operator. Whatever is on the display becomes the current value.
   def handle_event("operator", operator, socket = %{assigns: %{pending_operator: ''}}) do
     {:noreply, assign(socket, pending_operator: operator, reset_on_next_digit: true, value: socket.assigns.display )}
   end
 
   # when there is a pending operator. Whatever is on the display combines with the current value to set a new value.
+  # Perform the pending operation and this new operator becomes the pending operator.
   def handle_event("operator", operator, socket) do
     {:ok, new_value} = peform_pending_operation(socket)
     {:noreply, assign(socket, pending_operator: operator, reset_on_next_digit: true, value: new_value, display: new_value )}
   end
 
   # Equal sign clicked
+  # Perform pending operation and clear the pending operator.
   def handle_event("solve", _, socket) do
     {:ok, new_value} = peform_pending_operation(socket)
     {:noreply, assign(socket, pending_operator: '', reset_on_next_digit: true, value: new_value, display: new_value )}
@@ -45,8 +47,7 @@ defmodule DemoWeb.CalcLive.Index do
   end
 
   def handle_event("posneg", _, socket) do
-    {display, _} = Float.parse("#{socket.assigns.display}")
-    {:noreply, assign(socket, display: display * -1)}
+    {:noreply, assign(socket, display: display_to_float(socket) * -1)}
   end
 
   # Memory events
