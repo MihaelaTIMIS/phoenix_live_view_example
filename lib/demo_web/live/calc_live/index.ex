@@ -14,16 +14,19 @@ defmodule DemoWeb.CalcLive.Index do
   end
 
   # Key presses
-  def handle_event("keypress", key, socket) when (key >= "0" and key <= "9") or key == "." do
+  # See: https://github.com/phoenixframework/phoenix_live_view/blob/master/assets/js/phoenix_live_view.js#L41
+  def handle_event("keydown", key, socket) when (key >= "0" and key <= "9") or key == "." do
     update_display(key, socket )
   end
-  def handle_event("keypress", key, socket) when key in ["+","-","/","*"] do
+  def handle_event("keydown", key, socket) when key in ["+","-","/","*"] do
     handle_event("operator", key, socket)
   end
-  def handle_event("keypress", key, socket) when key == "=" do
+  def handle_event("keydown", key, socket) when key == "=" do
     handle_event("solve", key, socket)
   end
-  def handle_event("keypress", _key, socket), do: {:noreply, socket}
+  def handle_event("keydown", _key, socket) do
+    {:noreply, socket}
+  end
 
   # Operator clicks (+,-,*,/):
   # when there is no pending operator. Whatever is on the display becomes the current value.
