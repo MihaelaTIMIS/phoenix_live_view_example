@@ -21,7 +21,7 @@ defmodule DemoWeb.CalcLive.Index do
   def handle_event("keydown", key, socket) when key in ["+","-","/","*"] do
     handle_event("operator", key, socket)
   end
-  def handle_event("keydown", key, socket) when key == "=" do
+  def handle_event("keydown", key, socket) when key in ["=", "Enter"] do
     handle_event("solve", key, socket)
   end
   def handle_event("keydown", _key, socket) do
